@@ -2,7 +2,7 @@ from fastapi import APIRouter, UploadFile, File
 from fastapi.responses import JSONResponse
 import shutil
 import os
-from app.gemini_service import analyze_food_image
+from backend.app.gemini_service import analyze_food_image
 
 router = APIRouter()
 
