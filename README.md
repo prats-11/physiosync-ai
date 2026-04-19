@@ -3,7 +3,8 @@
 > AI-powered metabolism simulator that analyses food images and predicts body impact.
 
 ## 🚀 Live Demo
-Coming soon
+## 🚀 Live Demo
+https://physiosync-frontend-923345715930.us-central1.run.app
 
 ## 🧠 What it does
 - Upload a meal photo
