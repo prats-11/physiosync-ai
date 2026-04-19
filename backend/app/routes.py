@@ -1,21 +1,28 @@
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, UploadFile, File, Form
 from fastapi.responses import JSONResponse
-import shutil
-import os
-from backend.app.gemini_service import analyze_food_image
+from app.gemini_service import analyze_meal
+import json
 
 router = APIRouter()
 
-UPLOAD_FOLDER = "uploads"
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
 @router.post("/analyze")
-async def analyze_meal(image: UploadFile = File(...)):
-    file_path = f"{UPLOAD_FOLDER}/{image.filename}"
-
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(image.file, buffer)
-
-    result = analyze_food_image(file_path)
-
-    return JSONResponse(content={"result": result})
+async def analyze(
+    image: UploadFile = File(...),
+    weight: float = Form(...),
+    height: float = Form(...),
+    age: int = Form(...),
+    goal: str = Form(...),
+    activity: str = Form(...)
+):
+    try:
+        image_bytes = await image.read()
+        result = analyze_meal(image_bytes, weight, height, age, goal, activity)
+        
+        # Clean response and parse JSON
+        cleaned = result.strip().replace("```json", "").replace("```", "").strip()
+        data = json.loads(cleaned)
+        
+        return JSONResponse(content=data)
+    
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": str(e)})
