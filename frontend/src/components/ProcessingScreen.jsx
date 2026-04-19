@@ -13,7 +13,7 @@ export default function ProcessingScreen({ formData, onDone }) {
       data.append('activity', formData.activity)
 
       try {
-        const res = await axios.post('http://127.0.0.1:8000/analyze', data)
+        const res = await axios.post('https://physiosync-backend-923345715930.us-central1.run.app/analyze', data)
         onDone(res.data)
       } catch (err) {
         console.error(err)
