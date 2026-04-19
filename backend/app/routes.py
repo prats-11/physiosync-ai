@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 from app.gemini_service import analyze_meal
 import json
 import re
+import traceback
 
 router = APIRouter()
 
@@ -35,4 +36,6 @@ async def analyze(
         return JSONResponse(content=data)
     
     except Exception as e:
+        print(f"ERROR: {str(e)}")
+        print(traceback.format_exc())
         return JSONResponse(status_code=500, content={"error": str(e)})

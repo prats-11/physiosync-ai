@@ -13,7 +13,7 @@ export default function ProcessingScreen({ formData, onDone }) {
       data.append('activity', formData.activity)
 
       try {
-        const res = await axios.post('https://physiosync-backend-923345715930.us-central1.run.app/analyze', data)
+        const res = await axios.post('https://physiosync-backend-923345715930.us-central1.run.app/analyze', data, { timeout: 60000 })
         onDone(res.data)
       } catch (err) {
         console.error(err)
