@@ -4,6 +4,7 @@ import UploadScreen from './components/UploadScreen'
 import ProcessingScreen from './components/ProcessingScreen'
 import ResultsScreen from './components/ResultsScreen'
 import DashboardScreen from './components/DashboardScreen'
+import ChatBot from './components/ChatBot'
 
 function App() {
   const [screen, setScreen] = useState('landing')
@@ -27,6 +28,7 @@ function App() {
       {screen === 'dashboard' && (
         <DashboardScreen result={result} onBack={() => setScreen('upload')} />
       )}
+      <ChatBot result={result} />
     </div>
   )
 }
